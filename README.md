@@ -19,6 +19,14 @@ This project aims to develop an intelligent irrigation system that automates wat
 - **Software:** Arduino IDE, Python (for AI model), Web Technologies (HTML, CSS, JavaScript)
 - **Cloud Services:** Firebase / AWS / ThingsBoard (optional for data storage)
 
+## 👥 Team Members
+- Imane Benammou
+- Bilal Harcha
+- Oussamea Bouftini
+- Nouhaila Touil
+- Wiam Chahdi
+- Chaimae Azimani
+
 ## 📂 Project Structure
 ```
 📁 Smart-Irrigation-System
