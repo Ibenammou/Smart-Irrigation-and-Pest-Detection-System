@@ -1,6 +1,8 @@
 # Smart Irrigation and Pest Detection System with ESP32
 
 ## 📌 Project Overview
+![Uploading image.png…]()
+
 This project aims to develop an intelligent irrigation system that automates watering based on soil moisture levels while detecting pests using a camera and AI. The system is controlled by an ESP32 microcontroller and provides real-time monitoring via a web dashboard.
 
 ## 🚀 Features
