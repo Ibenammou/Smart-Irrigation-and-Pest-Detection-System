@@ -24,7 +24,7 @@ This project aims to develop an intelligent irrigation system that automates wat
 - Bilal Harcha
 - Oussamea Bouftini
 - Nouhaila Touil
-- Wiam Chahdi
+- Jihane Bouras
 - Chaimae Azimani
 
 ## 📂 Project Structure
