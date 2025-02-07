@@ -59,8 +59,8 @@ This project aims to develop an intelligent irrigation system that automates wat
 - Expanding AI capabilities for better pest identification.
 - Implementing mobile notifications for system alerts.
 
-## 📜 License
-This project is open-source under the MIT License.
+
+
 
 ## 📞 Contact
 For questions or contributions, feel free to open an issue or contact the team!
