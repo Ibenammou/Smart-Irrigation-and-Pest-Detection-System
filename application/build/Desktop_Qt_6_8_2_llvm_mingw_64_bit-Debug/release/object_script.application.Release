@@ -1,0 +1,15 @@
+release/basilicwindow.o
+release/dashboardwindow.o
+release/logowindow.o
+release/main.o
+release/orangeriewindow.o
+release/pommierwindow.o
+release/registerwindow.o
+release/signinwindow.o
+release/qrc_resources.o
+release/moc_basilicwindow.o
+release/moc_dashboardwindow.o
+release/moc_logowindow.o
+release/moc_orangeriewindow.o
+release/moc_pommierwindow.o
+release/moc_signinwindow.o
