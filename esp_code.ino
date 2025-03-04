@@ -1,70 +1,103 @@
 #include <WiFi.h>
-#include <HTTPClient.h>
+#include <PubSubClient.h>
 
-#define SOIL_MOISTURE_PIN 34
-#define TEMP_SENSOR_PIN 35
-#define WATER_PUMP_PIN 5
-#define CAMERA_MODULE_PIN 13
+// Replace with your MQTT Broker IP address
+const char* mqtt_server = "mqtt.eclipse.org"; // ubuntu
+WiFiClient espClient;
+PubSubClient client(espClient);
 
+// Sensor pins
+const int soilMoisturePin = 34;
+const int temperaturePin = 35;
+const int luxPin = 32;
+
+// Relay pin
+const int relayPin = 25;
+
+// Wi-Fi credentials (replace with your own)
 const char* ssid = "your_SSID";
 const char* password = "your_PASSWORD";
-const char* serverURL = "http://your-server.com/data";
 
-void setup() {
-    Serial.begin(115200);
-    pinMode(SOIL_MOISTURE_PIN, INPUT);
-    pinMode(TEMP_SENSOR_PIN, INPUT);
-    pinMode(WATER_PUMP_PIN, OUTPUT);
-    pinMode(CAMERA_MODULE_PIN, INPUT);
+void setup_wifi() {
+    delay(10);
+    Serial.println();
+    Serial.print("Connecting to ");
+    Serial.println(ssid);
 
     WiFi.begin(ssid, password);
-    Serial.print("Connecting to WiFi");
+
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
         Serial.print(".");
     }
-    Serial.println("Connected to WiFi");
+
+    Serial.println("");
+    Serial.println("WiFi connected");
+    Serial.println("IP address: ");
+    Serial.println(WiFi.localIP());
+}
+
+void callback(char* topic, byte* message, unsigned int length) {
+    Serial.print("Message arrived on topic: ");
+    Serial.print(topic);
+    Serial.print(". Message: ");
+    String messageTemp;
+
+    for (int i = 0; i < length; i++) {
+        messageTemp += (char)message[i];
+    }
+    Serial.println(messageTemp);
+
+    if (String(topic) == "irrigation/control") {
+        if (messageTemp == "ON") {
+            digitalWrite(relayPin, HIGH);
+            Serial.println("Irrigation ON");
+        } else if (messageTemp == "OFF") {
+            digitalWrite(relayPin, LOW);
+            Serial.println("Irrigation OFF");
+        }
+    }
+}
+
+void reconnect() {
+    while (!client.connected()) {
+        Serial.print("Attempting MQTT connection...");
+        if (client.connect("ESP32Client")) {
+            Serial.println("connected");
+            client.subscribe("irrigation/control");
+        } else {
+            Serial.print("failed, rc=");
+            Serial.print(client.state());
+            Serial.println(" try again in 5 seconds");
+            delay(5000);
+        }
+    }
+}
+
+void setup() {
+    pinMode(relayPin, OUTPUT);
+    digitalWrite(relayPin, LOW);
+
+    Serial.begin(115200);
+    setup_wifi(); // Connect to Wi-Fi
+    client.setServer(mqtt_server, 1883);
+    client.setCallback(callback);
 }
 
 void loop() {
-    int soilMoisture = analogRead(SOIL_MOISTURE_PIN);
-    int temperature = analogRead(TEMP_SENSOR_PIN); 
-    bool pestDetected = digitalRead(CAMERA_MODULE_PIN);
-
-    Serial.print("Soil Moisture: ");
-    Serial.println(soilMoisture);
-    Serial.print("Temperature: ");
-    Serial.println(temperature);
-    Serial.print("Pest Detected: ");
-    Serial.println(pestDetected);
-
-    if (soilMoisture < 500) {
-        digitalWrite(WATER_PUMP_PIN, HIGH);
-        Serial.println("Water Pump ON");
-    } else {
-        digitalWrite(WATER_PUMP_PIN, LOW);
-        Serial.println("Water Pump OFF");
+    if (!client.connected()) {
+        reconnect();
     }
+    client.loop();
 
-    if (WiFi.status() == WL_CONNECTED) {
-        HTTPClient http;
-        http.begin(serverURL);
-        http.addHeader("Content-Type", "application/json");
+    // Read sensor data
+    int soilMoisture = analogRead(soilMoisturePin);
+    int temperature = analogRead(temperaturePin);
+    int lux = analogRead(luxPin);
 
-        String jsonPayload = "{"soilMoisture": " + String(soilMoisture) + ", "temperature": " + String(temperature) + ", "pestDetected": " + String(pestDetected) + "}";
-        int httpResponseCode = http.POST(jsonPayload);
+    // Publish sensor data
+    String sensorData = "Soil Moisture: " + String(soilMoisture) + ", Temperature: " + String(temperature) + ", Lux: " + String(lux);
+    client.publish("sensor/data", sensorData.c_str());
 
-        if (httpResponseCode > 0) {
-            Serial.print("Data sent successfully: ");
-            Serial.println(httpResponseCode);
-        } else {
-            Serial.print("Error sending data: ");
-            Serial.println(httpResponseCode);
-        }
-
-        http.end();
-    }
-
-    delay(5000);
+    delay(5000); // Wait for 5 seconds before next reading
 }
-
