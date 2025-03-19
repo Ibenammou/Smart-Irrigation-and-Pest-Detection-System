@@ -15,26 +15,15 @@
 #include <QDockWidget>
 #include <QTimer>
 #include <QPropertyAnimation>
-#include <QScrollArea>
-#include <QDialog>
+#include <QDialog> // Include QDialog header
 
-// Include Qt Charts headers
+// Include Qt Charts headers (No more QtCharts namespace in Qt 6.8)
 #include <QtCharts/QChartView>
 #include <QtCharts/QChart>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QValueAxis>
 
-// Classe pour la fenêtre des alertes
-class AlertsWindow : public QDialog {
-    Q_OBJECT
-
-public:
-    explicit AlertsWindow(QWidget *parent = nullptr);
-    void setAlerts(const QStringList &alerts);
-
-private:
-    QWidget *alertsContainer;
-};
+class AlertsWindow; // Forward declaration for AlertsWindow
 
 class DashboardWindow : public QMainWindow {
     Q_OBJECT
@@ -42,13 +31,14 @@ class DashboardWindow : public QMainWindow {
 public:
     explicit DashboardWindow(QWidget *parent = nullptr);
     ~DashboardWindow();
-    static QLabel* createQuickAccessCard(const QString &title, const QString &waterUsage, const QString &timeRemaining);
+
+    QLabel* createQuickAccessCard(const QString &title, const QString &waterUsage, const QString &timeRemaining);
 
 private slots:
     void showPommierGraph();
     void showBasilicGraph();
     void showOrangerieGraph();
-    void displayAlerts();
+    void displayAlerts(); // Slot for displaying alerts
 
 private:
     // Left Sidebar
@@ -67,7 +57,7 @@ private:
     QWidget *quickAccessSection;
     QHBoxLayout *quickAccessLayout;
     QTableWidget *parcelDetailsTable;
-    QChartView *chartView;
+    QChartView *chartView;  // Use standard Qt 6.8 namespace
 
     // Right Panel
     QWidget *rightPanel;
@@ -78,11 +68,11 @@ private:
     QLabel *waterUsageDetailsLabel;
     QLabel *alertsLabel;
 
-    // Alerts Window
-    AlertsWindow *alertsWindow;
-
     // Animation Timer
     QTimer *animationTimer;
+
+    // Alerts Window
+    AlertsWindow *alertsWindow; // Pointer to the AlertsWindow
 
     void setupCustomTitleBar();
     void setupLeftSidebar();
@@ -90,7 +80,19 @@ private:
     void setupRightPanel();
     void applyStyles();
     void startAnimations();
-    void updateGraph(const QString &culture, const QVector<QPointF> &data);
+    void updateGraph(const QString &culture, const QVector<QPointF> &data);  // Update graph function
+};
+
+// AlertsWindow class declaration
+class AlertsWindow : public QDialog {
+    Q_OBJECT
+
+public:
+    explicit AlertsWindow(QWidget *parent = nullptr);
+    void setAlerts(const QStringList &alerts); // Function to set alerts
+
+private:
+    QWidget *alertsContainer; // Container for alerts
 };
 
 #endif // DASHBOARDWINDOW_H
