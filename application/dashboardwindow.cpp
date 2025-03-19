@@ -12,21 +12,7 @@
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QStyle>
-#include <QtCharts/QLineSeries>
-#include <QtCharts/QValueAxis>
-#include <QtCharts/QBarSeries>
-#include <QtCharts/QBarSet>
-#include <QtCharts/QBarCategoryAxis>
 #include <QDebug>
-
-QLabel* DashboardWindow::createQuickAccessCard(const QString &title, const QString &waterUsage, const QString &timeRemaining) {
-    QLabel *card = new QLabel();
-    card->setText(QString("%1\n💧 %2\n⏳ %3").arg(title, waterUsage, timeRemaining));
-    card->setFixedSize(200, 150);
-    card->setStyleSheet("background-color: #FFFFFF; border-radius: 10px; padding: 10px; border: 1px solid #CCCCCC; font-size: 14px; color: #333333;");
-    card->setAlignment(Qt::AlignCenter);
-    return card;
-}
 
 DashboardWindow::DashboardWindow(QWidget *parent)
     : QMainWindow(parent), alertsWindow(nullptr) {
@@ -40,7 +26,6 @@ DashboardWindow::DashboardWindow(QWidget *parent)
 }
 
 DashboardWindow::~DashboardWindow() {
-    // Clean up dynamically allocated objects
     delete alertsWindow;
 }
 
@@ -91,13 +76,15 @@ void DashboardWindow::setupLeftSidebar() {
     sidebarLayout->addWidget(startIrrigationButton);
     sidebarLayout->addWidget(viewDetailsButton);
 
+
     QDockWidget *sidebarDock = new QDockWidget("Sidebar", this);
     sidebarDock->setWidget(leftSidebar);
     sidebarDock->setFeatures(QDockWidget::NoDockWidgetFeatures);
     addDockWidget(Qt::LeftDockWidgetArea, sidebarDock);
 }
 
-void DashboardWindow::setupMainSection() {
+void DashboardWindow::setupMainSection()
+{
     mainSection = new QWidget(this);
     mainLayout = new QVBoxLayout(mainSection);
 
@@ -151,12 +138,82 @@ void DashboardWindow::setupMainSection() {
     mainLayout->addWidget(parcelDetailsTable);
 
     // Chart View for Watering Progress
-    chartView = new QChartView(mainSection);
-    chartView->setRenderHint(QPainter::Antialiasing);
-    mainLayout->addWidget(chartView);
+    QChartView *weeklyProgressChartView = new QChartView(mainSection);
+    weeklyProgressChartView->setRenderHint(QPainter::Antialiasing);
+
+    QChart *weeklyProgressChart = new QChart();
+    weeklyProgressChart->setTitle("Weekly Watering Progress");
+
+    QLineSeries *basilicSeries = new QLineSeries();
+    basilicSeries->setName("🌿 Basilic");
+    basilicSeries->append(1, 5);
+    basilicSeries->append(2, 15);
+    basilicSeries->append(3, 25);
+    basilicSeries->append(4, 35);
+    basilicSeries->append(5, 45);
+    basilicSeries->append(6, 55);
+    basilicSeries->append(7, 65);
+
+    QLineSeries *pommierSeries = new QLineSeries();
+    pommierSeries->setName("🍏 Pommier");
+    pommierSeries->append(1, 10);
+    pommierSeries->append(2, 20);
+    pommierSeries->append(3, 30);
+    pommierSeries->append(4, 40);
+    pommierSeries->append(5, 50);
+    pommierSeries->append(6, 60);
+    pommierSeries->append(7, 70);
+
+    QLineSeries *orangerieSeries = new QLineSeries();
+    orangerieSeries->setName("🍊 Orangerie");
+    orangerieSeries->append(1, 15);
+    orangerieSeries->append(2, 25);
+    orangerieSeries->append(3, 35);
+    orangerieSeries->append(4, 45);
+    orangerieSeries->append(5, 55);
+    orangerieSeries->append(6, 65);
+    orangerieSeries->append(7, 75);
+
+    weeklyProgressChart->addSeries(basilicSeries);
+    weeklyProgressChart->addSeries(pommierSeries);
+    weeklyProgressChart->addSeries(orangerieSeries);
+
+    QValueAxis *axisX = new QValueAxis();
+    axisX->setTitleText("Day");
+    axisX->setRange(1, 7);
+    weeklyProgressChart->addAxis(axisX, Qt::AlignBottom);
+    basilicSeries->attachAxis(axisX);
+    pommierSeries->attachAxis(axisX);
+    orangerieSeries->attachAxis(axisX);
+
+    QValueAxis *axisY = new QValueAxis();
+    axisY->setTitleText("Water Usage (L)");
+    axisY->setRange(0, 100);
+    weeklyProgressChart->addAxis(axisY, Qt::AlignLeft);
+    basilicSeries->attachAxis(axisY);
+    pommierSeries->attachAxis(axisY);
+    orangerieSeries->attachAxis(axisY);
+
+    weeklyProgressChartView->setChart(weeklyProgressChart);
+    weeklyProgressChartView->setMinimumSize(740, 300); // Set minimum size for the chart
+
+    mainLayout->addWidget(weeklyProgressChartView);
+
+    // Add stretch to ensure the chart stays at the bottom
+    mainLayout->addStretch();
 
     setCentralWidget(mainSection);
 }
+QLabel* DashboardWindow::createQuickAccessCard(const QString &title, const QString &waterUsage, const QString &timeRemaining)
+{
+    QLabel *card = new QLabel(quickAccessSection);
+    card->setText(QString("%1\n💧 %2\n⏳ %3").arg(title, waterUsage, timeRemaining));
+    card->setFixedSize(200, 150);
+    card->setStyleSheet("background-color: #FFFFFF; border-radius: 10px; padding: 10px; border: 1px solid #CCCCCC; font-size: 14px; color: #333333;");
+    card->setAlignment(Qt::AlignCenter);
+    return card;
+}
+
 
 void DashboardWindow::setupRightPanel() {
     rightPanel = new QWidget(this);
@@ -239,11 +296,8 @@ void DashboardWindow::startAnimations() {
     animation->start();
 }
 
-void DashboardWindow::updateGraph(const QString &culture, const QVector<QPointF> &data) {
-    if (chartView->chart()) {
-        delete chartView->chart();
-    }
-
+void DashboardWindow::updateGraph(const QString &culture, const QVector<QPointF> &data)
+{
     QLineSeries *series = new QLineSeries();
     series->setName(culture + " Watering Progress");
 
@@ -273,18 +327,27 @@ void DashboardWindow::updateGraph(const QString &culture, const QVector<QPointF>
     chartView->update();
 }
 
-void DashboardWindow::showPommierGraph() {
-    QVector<QPointF> data = {{1, 10}, {2, 20}, {3, 30}, {4, 40}, {5, 50}, {6, 60}, {7, 70}};
+void DashboardWindow::showPommierGraph()
+{
+    QVector<QPointF> data = {
+        {1, 10}, {2, 20}, {3, 30}, {4, 40}, {5, 50}, {6, 60}, {7, 70}
+    };
     updateGraph("Pommier", data);
 }
 
-void DashboardWindow::showBasilicGraph() {
-    QVector<QPointF> data = {{1, 5}, {2, 15}, {3, 25}, {4, 35}, {5, 45}, {6, 55}, {7, 65}};
+void DashboardWindow::showBasilicGraph()
+{
+    QVector<QPointF> data = {
+        {1, 5}, {2, 15}, {3, 25}, {4, 35}, {5, 45}, {6, 55}, {7, 65}
+    };
     updateGraph("Basilic", data);
 }
 
-void DashboardWindow::showOrangerieGraph() {
-    QVector<QPointF> data = {{1, 15}, {2, 25}, {3, 35}, {4, 45}, {5, 55}, {6, 65}, {7, 75}};
+void DashboardWindow::showOrangerieGraph()
+{
+    QVector<QPointF> data = {
+        {1, 15}, {2, 25}, {3, 35}, {4, 45}, {5, 55}, {6, 65}, {7, 75}
+    };
     updateGraph("Orangerie", data);
 }
 
@@ -303,6 +366,15 @@ void DashboardWindow::displayAlerts() {
 
     alertsWindow->setAlerts(alerts);
     alertsWindow->showFullScreen();
+}
+
+QLabel* DashboardWindow::createQuickAccessCard(const QString &title, const QString &waterUsage, const QString &timeRemaining) {
+    QLabel *card = new QLabel();
+    card->setText(QString("%1\n💧 %2\n⏳ %3").arg(title, waterUsage, timeRemaining));
+    card->setFixedSize(200, 150);
+    card->setStyleSheet("background-color: #FFFFFF; border-radius: 10px; padding: 10px; border: 1px solid #CCCCCC; font-size: 14px; color: #333333;");
+    card->setAlignment(Qt::AlignCenter);
+    return card;
 }
 
 // AlertsWindow Implementation
