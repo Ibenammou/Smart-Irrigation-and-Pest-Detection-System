@@ -346,7 +346,7 @@ void DashboardWindow::showBasilicGraph()
 void DashboardWindow::showOrangerieGraph()
 {
     QVector<QPointF> data = {
-        {1, 15}, {2, 25}, {3, 35}, {4, 45}, {5, 55}, {6, 65}, {7, 75}
+        {1, 15}, {2, 25}, {3, 35}, {84, 45}, {5, 55}, {6, 65}, {7, 75}
     };
     updateGraph("Orangerie", data);
 }
@@ -368,14 +368,7 @@ void DashboardWindow::displayAlerts() {
     alertsWindow->showFullScreen();
 }
 
-QLabel* DashboardWindow::createQuickAccessCard(const QString &title, const QString &waterUsage, const QString &timeRemaining) {
-    QLabel *card = new QLabel();
-    card->setText(QString("%1\n💧 %2\n⏳ %3").arg(title, waterUsage, timeRemaining));
-    card->setFixedSize(200, 150);
-    card->setStyleSheet("background-color: #FFFFFF; border-radius: 10px; padding: 10px; border: 1px solid #CCCCCC; font-size: 14px; color: #333333;");
-    card->setAlignment(Qt::AlignCenter);
-    return card;
-}
+
 
 // AlertsWindow Implementation
 AlertsWindow::AlertsWindow(QWidget *parent) : QDialog(parent) {
