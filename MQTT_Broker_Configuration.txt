@@ -1,0 +1,9 @@
+1-suivez ce tuto : https://youtu.be/4ZEPPQLY5o4?si=w3fbymXGDtred_GW
+2-in terminal:
+3-notepad mosquitto.conf
+4-mosquitto.conf: ajoutez ces lignes 
+plaintext
+listener 1883 0.0.0.0
+allow_anonymous true
+protocol mqtt
+5-.\mosquitto -v -c mosquitto.conf
