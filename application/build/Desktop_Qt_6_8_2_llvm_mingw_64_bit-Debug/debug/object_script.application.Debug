@@ -3,8 +3,10 @@ debug/logowindow.o
 debug/main.o
 debug/registerwindow.o
 debug/signinwindow.o
+debug/valuemqtt.o
 debug/qrc_resources.o
 debug/moc_dashboardwindow.o
 debug/moc_logowindow.o
 debug/moc_registerwindow.o
 debug/moc_signinwindow.o
+debug/moc_valuemqtt.o

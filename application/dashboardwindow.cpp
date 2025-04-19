@@ -13,6 +13,8 @@
 #include <QToolButton>
 #include <QStyle>
 #include <QDebug>
+#include "valuemqtt.h"
+#include "valuemqtt.h"  // Not "valuemqtt.h" if your file is named "valuemqtt.h"
 
 DashboardWindow::DashboardWindow(QWidget *parent)
     : QMainWindow(parent), alertsWindow(nullptr) {
@@ -63,6 +65,11 @@ void DashboardWindow::setupLeftSidebar() {
     myParcelsButton = new QPushButton("🌱 Mes Parcelles", leftSidebar);
     waterConsumptionButton = new QPushButton("💧 Consommation d’eau", leftSidebar);
     settingsButton = new QPushButton("⚙ Paramètres", leftSidebar);
+    connect(settingsButton, &QPushButton::clicked, this, [this]() {
+        ValueMQTT *settingsWindow = new ValueMQTT("Paramètres", this);
+        settingsWindow->setMqttValues("Configuration des paramètres MQTT");
+        settingsWindow->show();
+    });
     alertsButton = new QPushButton("🚨 Alertes", leftSidebar);
     connect(alertsButton, &QPushButton::clicked, this, &DashboardWindow::displayAlerts);
 
@@ -83,8 +90,7 @@ void DashboardWindow::setupLeftSidebar() {
     addDockWidget(Qt::LeftDockWidgetArea, sidebarDock);
 }
 
-void DashboardWindow::setupMainSection()
-{
+void DashboardWindow::setupMainSection() {
     mainSection = new QWidget(this);
     mainLayout = new QVBoxLayout(mainSection);
 
@@ -98,9 +104,9 @@ void DashboardWindow::setupMainSection()
     quickAccessSection = new QWidget(mainSection);
     quickAccessLayout = new QHBoxLayout(quickAccessSection);
 
-    QLabel *basilicCard = createQuickAccessCard("🌿 Basilic", "45%", "3h restantes");
-    QLabel *pommierCard = createQuickAccessCard("🍏 Pommier", "50%", "2h restantes");
-    QLabel *orangerieCard = createQuickAccessCard("🍊 Orangerie", "30%", "4h restantes");
+    QPushButton *basilicCard = createQuickAccessCard("🌿 Basilic", "45%", "3h restantes");
+    QPushButton *pommierCard = createQuickAccessCard("🍏 Pommier", "50%", "2h restantes");
+    QPushButton *orangerieCard = createQuickAccessCard("🍊 Orangerie", "30%", "4h restantes");
 
     quickAccessLayout->addWidget(basilicCard);
     quickAccessLayout->addWidget(pommierCard);
@@ -204,13 +210,20 @@ void DashboardWindow::setupMainSection()
 
     setCentralWidget(mainSection);
 }
-QLabel* DashboardWindow::createQuickAccessCard(const QString &title, const QString &waterUsage, const QString &timeRemaining)
-{
-    QLabel *card = new QLabel(quickAccessSection);
+void DashboardWindow::onCardClicked(const QString &cropName) {
+    ValueMQTT *valueMqttWindow = new ValueMQTT(cropName, this);
+    valueMqttWindow->setMqttValues("Sample MQTT values for " + cropName); // Replace with actual MQTT values
+    valueMqttWindow->show();
+}
+QPushButton* DashboardWindow::createQuickAccessCard(const QString &title, const QString &waterUsage, const QString &timeRemaining) {
+    QPushButton *card = new QPushButton(quickAccessSection);
     card->setText(QString("%1\n💧 %2\n⏳ %3").arg(title, waterUsage, timeRemaining));
     card->setFixedSize(200, 150);
     card->setStyleSheet("background-color: #FFFFFF; border-radius: 10px; padding: 10px; border: 1px solid #CCCCCC; font-size: 14px; color: #333333;");
-    card->setAlignment(Qt::AlignCenter);
+    card->setCursor(Qt::PointingHandCursor);
+
+    connect(card, &QPushButton::clicked, this, [this, title]() { onCardClicked(title); });
+
     return card;
 }
 

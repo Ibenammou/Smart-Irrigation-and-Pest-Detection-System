@@ -1,6 +1,6 @@
 # Modules Qt requis
-QT += core gui widgets charts mqtt multimedia multimediawidgets quick
-
+QT += core gui widgets charts mqtt multimedia multimediawidgets quick network
+QT += charts multimedia multimediawidgets
 # Configuration pour C++17
 CONFIG += c++17
 
@@ -14,14 +14,16 @@ SOURCES += \
     logowindow.cpp \
     main.cpp \
     registerwindow.cpp \
-    signinwindow.cpp
+    signinwindow.cpp \
+    valuemqtt.cpp
 
 # Fichiers d'en-tête
 HEADERS += \
     dashboardwindow.h \
     logowindow.h \
     registerwindow.h \
-    signinwindow.h
+    signinwindow.h \
+    valuemqtt.h
 
 # Fichiers de formulaire (si vous utilisez Qt Designer)
 FORMS +=
@@ -33,7 +35,10 @@ RESOURCES += \
 # Fichiers supplémentaires à inclure dans la distribution
 DISTFILES += \
     images/logo (2).png
-
+    # Add Python include path
+    INCLUDEPATH += C:/Users/mustapha/AppData/Local/Programs/Python/Python312/include
+    # Add Python library path
+    LIBS += -LC:/Users/mustapha/AppData/Local/Programs/Python/Python312/libs -lpython312
 # Règles par défaut pour le déploiement
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

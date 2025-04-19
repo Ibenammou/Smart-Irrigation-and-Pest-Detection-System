@@ -32,12 +32,12 @@ public:
     explicit DashboardWindow(QWidget *parent = nullptr);
     ~DashboardWindow();
 
-    QLabel* createQuickAccessCard(const QString &title, const QString &waterUsage, const QString &timeRemaining);
-
+    QPushButton* createQuickAccessCard(const QString &title, const QString &waterUsage, const QString &timeRemaining); // Change QLabel* to QPushButton*
 private slots:
     void showPommierGraph();
     void showBasilicGraph();
     void showOrangerieGraph();
+    void onCardClicked(const QString &cropName);
     void displayAlerts(); // Slot for displaying alerts
 
 private:
