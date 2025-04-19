@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>assets/OIP (1).jpeg</file>
-        <file>assets/background.jpeg</file>
-        <file>assets/basil.glb</file>
-    </qresource>
-</RCC>
