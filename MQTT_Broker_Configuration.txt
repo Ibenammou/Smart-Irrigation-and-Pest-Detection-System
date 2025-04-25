@@ -1,5 +1,11 @@
 1-suivez ce tuto : https://youtu.be/4ZEPPQLY5o4?si=w3fbymXGDtred_GW
 
+
+PS C:\Users\mustapha> cd ../..
+PS C:\> cd '.\Program Files\'
+PS C:\Program Files> cd .\mosquitto\
+PS C:\Program Files\mosquitto>
+
 1. Configure Mosquitto to listen on all interfaces (0.0.0.0)
 
 Locate your mosquitto.conf file
