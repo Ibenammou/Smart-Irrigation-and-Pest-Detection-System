@@ -1,0 +1,14 @@
+release/dashboardwindow.o
+release/logowindow.o
+release/main.o
+release/pestdetectionwindow.o
+release/registerwindow.o
+release/signinwindow.o
+release/valuemqtt.o
+release/qrc_resources.o
+release/moc_dashboardwindow.o
+release/moc_logowindow.o
+release/moc_pestdetectionwindow.o
+release/moc_registerwindow.o
+release/moc_signinwindow.o
+release/moc_valuemqtt.o
