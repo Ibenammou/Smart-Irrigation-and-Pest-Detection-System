@@ -5,6 +5,36 @@ PS C:\Users\mustapha> cd ../..
 PS C:\> cd '.\Program Files\'
 PS C:\Program Files> cd .\mosquitto\
 PS C:\Program Files\mosquitto>
+2**-
+Press Win+R, type "wf.msc" and press Enter
+Or navigate to Control Panel → System and Security → Windows Defender Firewall → Advanced settings
+
+
+Create a new Inbound Rule
+
+In the left panel, click on "Inbound Rules"
+In the right panel, click on "New Rule..."
+
+
+Configure the new rule
+
+Select "Port" and click Next
+Select "TCP" and enter "1883" in the "Specific local ports" field, click Next
+Select "Allow the connection" and click Next
+Check all profiles (Domain, Private, Public) and click Next
+Give your rule a name (e.g., "MQTT Broker") and click Finish
+Enter this command:
+netsh advfirewall firewall add rule name="MQTT Broker" dir=in action=allow protocol=TCP localport=1883
+2-in terminal:
+3-notepad mosquitto.conf
+4-mosquitto.conf: ajoutez ces lignes 
+plaintext
+listener 1883 0.0.0.0
+allow_anonymous true
+protocol mqtt
+5-.\mosquitto -v -c mosquitto.conf
+
+
 
 1. Configure Mosquitto to listen on all interfaces (0.0.0.0)
 
@@ -43,44 +73,15 @@ net start mosquitto
 
 Open Windows Defender Firewall with Advanced Security
 
-Press Win+R, type "wf.msc" and press Enter
-Or navigate to Control Panel → System and Security → Windows Defender Firewall → Advanced settings
-
-
-Create a new Inbound Rule
-
-In the left panel, click on "Inbound Rules"
-In the right panel, click on "New Rule..."
-
-
-Configure the new rule
-
-Select "Port" and click Next
-Select "TCP" and enter "1883" in the "Specific local ports" field, click Next
-Select "Allow the connection" and click Next
-Check all profiles (Domain, Private, Public) and click Next
-Give your rule a name (e.g., "MQTT Broker") and click Finish
-
 
 Alternative: Using the command line
 
 Open Command Prompt as Administrator
-Enter this command:
-netsh advfirewall firewall add rule name="MQTT Broker" dir=in action=allow protocol=TCP localport=1883
-
 
 
 
 After completing these steps, your Mosquitto broker should be accessible to devices on your local network, including your ESP32.
 
-2-in terminal:
-3-notepad mosquitto.conf
-4-mosquitto.conf: ajoutez ces lignes 
-plaintext
-listener 1883 0.0.0.0
-allow_anonymous true
-protocol mqtt
-5-.\mosquitto -v -c mosquitto.conf
 
 
 
