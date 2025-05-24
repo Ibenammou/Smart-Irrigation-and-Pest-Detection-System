@@ -88,4 +88,4 @@ After completing these steps, your Mosquitto broker should be accessible to devi
 
 .\venv\Scripts\activate
 python
-python pest_detection.py keras_model.h5
+python pest_detection.py best_agritech.pt
