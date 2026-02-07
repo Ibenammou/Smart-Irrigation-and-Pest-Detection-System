@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutoriel AGRITECH - Installation Complète</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header-emoji {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #4a5568;
+            font-size: 1.2em;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-title {
+            font-size: 1.3em;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: left;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: #2d3748;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section h3 {
+            color: #4a5568;
+            font-size: 1.4em;
+            margin: 20px 0 10px 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .feature-card h4 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        code {
+            background: #2d3748;
+            color: #a0f0b8;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #2d3748;
+            color: #a0f0b8;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .file-list {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li::before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .btn-copy {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .btn-copy:hover {
+            background: #218838;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-emoji">🌱</div>
+            <h1>Projet AGRITECH</h1>
+            <p class="subtitle">Smart Irrigation and Pest Detection System</p>
+            <p style="margin-top: 10px; color: #718096;">Tutoriel d'installation et de configuration complet</p>
+        </header>
+
+        <nav>
+            <div class="nav-title">📑 Navigation Rapide</div>
+            <div class="nav-grid">
+                <button class="nav-button" onclick="scrollToSection('presentation')">📌 Présentation</button>
+                <button class="nav-button" onclick="scrollToSection('qt-install')">🛠️ Installation Qt</button>
+                <button class="nav-button" onclick="scrollToSection('projet')">📥 Récupération Projet</button>
+                <button class="nav-button" onclick="scrollToSection('fichiers')">🧱 Création Fichiers</button>
+                <button class="nav-button" onclick="scrollToSection('python')">🐍 Configuration Python</button>
+                <button class="nav-button" onclick="scrollToSection('mqtt')">📡 Configuration MQTT</button>
+                <button class="nav-button" onclick="scrollToSection('network')">🌐 Configuration Réseau</button>
+                <button class="nav-button" onclick="scrollToSection('conclusion')">✅ Conclusion</button>
+            </div>
+        </nav>
+
+        <div id="presentation" class="section">
+            <h2>📌 Présentation du Projet</h2>
+            <p>Ce projet vise à développer <strong>un système d'irrigation intelligent</strong> qui automatise l'arrosage en fonction de l'humidité du sol, tout en intégrant <strong>la détection des nuisibles à l'aide d'une caméra et de l'intelligence artificielle</strong>.</p>
+            <p>Le système est piloté par un <strong>microcontrôleur ESP32</strong> et offre un <strong>suivi en temps réel via une application desktop développée avec Qt</strong>.</p>
+
+            <h3>🚀 Fonctionnalités Principales</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>💧 Irrigation Automatisée</h4>
+                    <p>Ajustement de l'arrosage selon les capteurs d'humidité du sol</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🐛 Détection des Nuisibles</h4>
+                    <p>Utilisation d'une caméra et d'un modèle IA entraîné</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📡 Connectivité ESP32</h4>
+                    <p>Transmission des données via protocole MQTT</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Dashboard Utilisateur</h4>
+                    <p>Visualisation et contrôle en temps réel</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔔 Notifications</h4>
+                    <p>Alertes en cas de détection de nuisibles ou d'anomalies</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎓 Aspect Pédagogique</h4>
+                    <p>Apprentissage interactif pour les enfants</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="qt-install" class="section">
+            <h2>🛠️ Installation de Qt Designer et Qt Creator</h2>
+            
+            <h3>🔗 Téléchargement</h3>
+            <p>Lien officiel : <a href="https://www.qt.io/download" target="_blank">https://www.qt.io/download</a></p>
+            <p>Choisir <strong>Qt Online Installer</strong></p>
+
+            <div class="warning-box">
+                <strong>⚠️ Version Recommandée : Qt 6.8.2</strong><br>
+                Il est <strong>fortement recommandé</strong> d'utiliser <strong>Qt 6.8.2</strong> pour éviter les erreurs liées aux instructions dépréciées dans les versions plus récentes.
+            </div>
+
+            <div class="info-box">
+                <strong>📧 Astuce Licence</strong><br>
+                Utilisez une <strong>adresse e-mail académique</strong> (universitaire) lors de l'inscription pour bénéficier de la <strong>licence éducative gratuite</strong>.
+            </div>
+
+            <h3>🔍 Comment trouver Qt 6.8.2 si elle n'est pas listée</h3>
+            <ol>
+                <li>Ouvrir <strong>Qt Maintenance Tool</strong> (installé avec Qt)</li>
+                <li>Cliquer sur <strong>Add or Remove Components</strong></li>
+                <li>Dans la section <strong>Qt → Archive</strong> ou <strong>Archive</strong></li>
+                <li>Cocher <strong>Show archived versions</strong> ou naviguer dans les versions disponibles</li>
+                <li>Sélectionner <strong>Qt 6.8.2</strong></li>
+            </ol>
+
+            <h3>📦 Composants à installer pour Qt 6.8.2</h3>
+            <div class="file-list">
+                <ul class="checklist">
+                    <li><strong>MinGW 64-bit</strong> (compilateur pour Windows)</li>
+                    <li><strong>Qt Charts</strong> (pour les graphiques)</li>
+                    <li><strong>Qt MQTT</strong> (protocole de communication)</li>
+                    <li><strong>Qt Multimedia</strong> (gestion caméra/vidéo)</li>
+                    <li><strong>Qt Widgets</strong> (interface utilisateur)</li>
+                    <li><strong>Qt Network</strong> (communication réseau)</li>
+                    <li><strong>Qt Quick</strong> (interface moderne)</li>
+                </ul>
+            </div>
+
+            <h3>⚙️ Configuration du fichier .pro</h3>
+            <p>Dans votre fichier <code>.pro</code>, vérifiez que les modules suivants sont inclus :</p>
+            <pre><code>QT += core gui widgets charts mqtt multimedia multimediawidgets quick network
+CONFIG += c++17</code></pre>
+        </div>
+
+        <div id="projet" class="section">
+            <h2>📥 Récupération du Projet AGRITECH</h2>
+            
+            <h3>🔗 Repository GitHub</h3>
+            <p><a href="https://github.com/Ibenammou/Smart-Irrigation-and-Pest-Detection-System/tree/master" target="_blank">https://github.com/Ibenammou/Smart-Irrigation-and-Pest-Detection-System</a></p>
+
+            <h3>📋 Étapes d'installation</h3>
+            <ol>
+                <li>Accéder au lien GitHub ci-dessus</li>
+                <li>Cliquer sur le bouton vert <strong>Code</strong></li>
+                <li>Sélectionner <strong>Download ZIP</strong></li>
+                <li>Décompresser le fichier ZIP dans un emplacement de votre choix</li>
+                <li>Ouvrir <strong>Qt Creator</strong></li>
+                <li>Cliquer sur <strong>File → Open File or Project</strong></li>
+                <li>Naviguer vers le dossier <strong>application</strong></li>
+                <li>Sélectionner le fichier <code>.pro</code></li>
+            </ol>
+
+            <div class="success-box">
+                <strong>✅ Vérification</strong><br>
+                Une fois le projet ouvert, Qt Creator devrait afficher la structure complète du projet dans le panneau de gauche.
+            </div>
+        </div>
+
+        <div id="fichiers" class="section">
+            <h2>🧱 Création Manuelle du Projet (si nécessaire)</h2>
+            
+            <div class="info-box">
+                <strong>ℹ️ Information</strong><br>
+                Cette étape n'est nécessaire que si vous créez le projet depuis zéro. Si vous avez téléchargé le projet GitHub, passez à la section suivante.
+            </div>
+
+            <h3>📁 Fichiers C++ à créer</h3>
+            <div class="warning-box">
+                <strong>⚠️ Attention</strong><br>
+                Les noms des fichiers doivent être <strong>exactement identiques</strong> à ceux listés ci-dessous, sinon Qt ne reconnaîtra pas les liens entre les fichiers.
+            </div>
+
+            <div class="file-list">
+                <strong>Fichiers sources (.cpp) et en-têtes (.h) :</strong>
+                <ul>
+                    <li><code>main.cpp</code></li>
+                    <li><code>logowindow.h</code> / <code>logowindow.cpp</code></li>
+                    <li><code>dashboardwindow.h</code> / <code>dashboardwindow.cpp</code></li>
+                    <li><code>signinwindow.h</code> / <code>signinwindow.cpp</code></li>
+                    <li><code>registerwindow.h</code> / <code>registerwindow.cpp</code></li>
+                    <li><code>valuemqtt.h</code> / <code>valuemqtt.cpp</code></li>
+                    <li><code>pestdisplayapp.h</code> / <code>pestdisplayapp.cpp</code></li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ Après la création des fichiers</strong><br>
+                Une fois tous les fichiers créés dans votre projet Qt, vous devez <strong>copier le code source depuis le repository GitHub</strong> :
+                <ol>
+                    <li>Ouvrir le repository GitHub : <a href="https://github.com/Ibenammou/Smart-Irrigation-and-Pest-Detection-System/tree/master" target="_blank">AGRITECH GitHub</a></li>
+                    <li>Naviguer vers le dossier <strong>application</strong></li>
+                    <li>Pour chaque fichier (par exemple <code>main.cpp</code>) :
+                        <ul>
+                            <li>Cliquer sur le fichier dans GitHub</li>
+                            <li>Cliquer sur le bouton <strong>Raw</strong> ou copier directement le contenu</li>
+                            <li>Copier tout le code</li>
+                            <li>Coller le code dans votre fichier correspondant dans Qt Creator</li>
+                        </ul>
+                    </li>
+                    <li>Répéter l'opération pour <strong>tous les fichiers .cpp et .h</strong></li>
+                    <li>Sauvegarder tous les fichiers (Ctrl+S)</li>
+                </ol>
+            </div>
+
+            <h3>🖼️ Création du Fichier de Ressources</h3>
+            <p>Pour ajouter des images, logos et icônes au projet :</p>
+            <ol>
+                <li>Clic droit sur le projet → <strong>Add New</strong></li>
+                <li>Sélectionner <strong>Qt → Qt Resource File</strong></li>
+                <li>Nommer le fichier : <code>resources.qrc</code></li>
+                <li>Ajouter un préfixe (exemple : <code>/images</code>)</li>
+                <li>Ajouter toutes vos images via <strong>Add → Add Files</strong></li>
+                <li>Les images seront accessibles dans Qt Designer avec le chemin <code>:/images/nom_image.png</code></li>
+            </ol>
+        </div>
+
+        <div id="python" class="section">
+            <h2>🐍 Configuration Python</h2>
+            
+            <h3>📄 Fichier Python requis</h3>
+            <p>Vous devez créer le fichier <code>pest_detection.py</code> dans le dossier racine du projet.</p>
+
+            <h3>🤖 Modèle IA</h3>
+            <div class="warning-box">
+                <strong>⚠️ Important</strong><br>
+                Le fichier <strong><code>best_agritech.pt</code></strong> (modèle IA entraîné) doit être placé dans <strong>le même dossier</strong> que <code>pest_detection.py</code>. Cette disposition est obligatoire car le script Python utilise un chemin relatif.
+            </div>
+
+            <h3>⚙️ Configuration dans le fichier .pro</h3>
+            <p>Vous devez modifier les chemins Python dans votre fichier <code>.pro</code> selon votre installation :</p>
+            
+            <pre><code>INCLUDEPATH += C:/Users/VOTRE_NOM_UTILISATEUR/AppData/Local/Programs/Python/Python312/include
+LIBS += -LC:/Users/VOTRE_NOM_UTILISATEUR/AppData/Local/Programs/Python/Python312/libs -lpython312</code></pre>
+
+            <div class="info-box">
+                <strong>🔍 Comment trouver votre chemin Python</strong>
+                <ol>
+                    <li>Ouvrir un terminal CMD</li>
+                    <li>Taper : <code>python --version</code> (vérifier la version)</li>
+                    <li>Taper : <code>where python</code> (affiche le chemin)</li>
+                    <li>Utiliser ce chemin dans le fichier .pro</li>
+                </ol>
+            </div>
+
+            <h3>📍 Modification du chemin du modèle dans dashboardwindow.cpp</h3>
+            <p>Dans le fichier <code>dashboardwindow.cpp</code> (environ ligne 80), modifiez le chemin vers le modèle IA :</p>
+            
+            <pre><code>QString modelPath = "C:/chemin/vers/votre/projet/application/best_agritech.pt";</code></pre>
+
+            <div class="warning-box">
+                <strong>⚠️ Attention au format</strong><br>
+                Utilisez des slashes <code>/</code> et non des backslashes <code>\</code> dans les chemins, même sous Windows. Qt gère automatiquement la conversion.
+            </div>
+
+            <h3>🚀 Lancement du script Python</h3>
+            <p>Pour tester la détection de nuisibles :</p>
+            <pre><code>cd chemin/vers/votre/projet
+.\venv\Scripts\activate
+python pest_detection.py best_agritech.pt</code></pre>
+        </div>
+
+        <div id="mqtt" class="section">
+            <h2>📡 Configuration MQTT avec Mosquitto</h2>
+            
+            <h3>🔹 Installation du Broker Mosquitto</h3>
+            <p>Tutoriel vidéo complet : <a href="https://youtu.be/4ZEPPQLY5o4" target="_blank">https://youtu.be/4ZEPPQLY5o4</a></p>
+            
+            <div class="info-box">
+                <strong>💡 Qu'est-ce que MQTT ?</strong><br>
+                MQTT est un protocole de messagerie léger utilisé pour la communication entre l'ESP32 et l'application Qt. Le broker Mosquitto agit comme un serveur central qui reçoit et distribue les messages.
+            </div>
+
+            <h3>💻 Commandes d'accès à Mosquitto (CMD Administrateur)</h3>
+            <pre><code>cd ..
+cd "Program Files"
+cd mosquitto</code></pre>
+
+            <h3>🔒 Autorisation du port MQTT (1883)</h3>
+            <p><strong>Méthode 1 : Interface graphique</strong></p>
+            <ol>
+                <li>Appuyer sur <strong>Win + R</strong></li>
+                <li>Taper <code>wf.msc</code> et appuyer sur Entrée</li>
+                <li>Cliquer sur <strong>Inbound Rules</strong> (Règles entrantes)</li>
+                <li>Cliquer sur <strong>New Rule</strong> (Nouvelle règle)</li>
+                <li>Sélectionner <strong>Port</strong> → Suivant</li>
+                <li>Sélectionner <strong>TCP</strong></li>
+                <li>Entrer le port : <code>1883</code></li>
+                <li>Sélectionner <strong>Allow the connection</strong></li>
+                <li>Cocher tous les profils (Domain, Private, Public)</li>
+                <li>Nommer la règle : <strong>MQTT Broker</strong></li>
+            </ol>
+
+            <p><strong>Méthode 2 : Ligne de commande (CMD Administrateur)</strong></p>
+            <pre><code>netsh advfirewall firewall add rule name="MQTT Broker" dir=in action=allow protocol=TCP localport=1883</code></pre>
+
+            <h3>⚙️ Configuration du fichier mosquitto.conf</h3>
+            <p>Ouvrir le fichier <code>mosquitto.conf</code> (dans <code>C:\Program Files\mosquitto\</code>) et ajouter :</p>
+            
+            <pre><code>listener 1883 0.0.0.0
+allow_anonymous true
+protocol mqtt</code></pre>
+
+            <div class="warning-box">
+                <strong>⚠️ Sécurité</strong><br>
+                La configuration <code>allow_anonymous true</code> est pratique pour le développement mais n'est <strong>PAS recommandée en production</strong>. Pour un usage réel, configurez des identifiants MQTT.
+            </div>
+
+            <h3>🔄 Redémarrage du service Mosquitto</h3>
+            <pre><code>net stop mosquitto
+net start mosquitto</code></pre>
+
+            <div class="success-box">
+                <strong>✅ Vérification</strong><br>
+                Pour vérifier que Mosquitto fonctionne : <code>netstat -an | findstr 1883</code><br>
+                Vous devriez voir une ligne avec <code>0.0.0.0:1883</code>
+            </div>
+        </div>
+
+        <div id="network" class="section">
+            <h2>🌐 Configuration de l'Adresse IP et du Réseau</h2>
+            
+            <div class="warning-box">
+                <strong>⚠️ Très Important - Configuration Réseau</strong><br>
+                Le choix du réseau est <strong>crucial</strong> pour le bon fonctionnement du système MQTT.
+            </div>
+
+            <h3>✅ Réseaux Recommandés</h3>
+            <ul class="checklist">
+                <li><strong>Hotspot Android</strong> - Solution idéale et testée</li>
+                <li><strong>Réseau Wi-Fi domestique</strong> - Fonctionne bien</li>
+                <li><strong>Box Internet personnelle</strong> - Compatible</li>
+            </ul>
+
+            <h3>❌ Réseaux à Éviter</h3>
+            <div class="warning-box">
+                <strong>Ne PAS utiliser :</strong>
+                <ul>
+                    <li>Réseaux universitaires (ENSAO, etc.)</li>
+                    <li>Réseaux d'entreprise</li>
+                    <li>Réseaux publics avec restrictions</li>
+                </ul>
+                <strong>Raison :</strong> Ces réseaux bloquent généralement le port 1883 (MQTT) pour des raisons de sécurité.
+            </div>
+
+            <h3>🔍 Comment trouver votre adresse IP</h3>
+            <p><strong>Sous Windows :</strong></p>
+            <pre><code>ipconfig</code></pre>
+            <p>Chercher <strong>Adresse IPv4</strong> dans la section de votre connexion active (Wi-Fi ou Ethernet).</p>
+            <p>Format habituel : <code>192.168.x.x</code> ou <code>10.x.x.x</code></p>
+
+            <h3>📝 Où modifier l'adresse IP</h3>
+            <div class="file-list">
+                <strong>Deux emplacements à modifier avec la MÊME adresse IP :</strong>
+                <ol>
+                    <li>
+                        <strong>Dans le code Arduino (ESP32)</strong>
+                        <pre><code>const char* mqtt_server = "192.168.x.x";  // Votre IP locale</code></pre>
+                    </li>
+                    <li>
+                        <strong>Dans valuemqtt.cpp (ligne ~253)</strong>
+                        <pre><code>client->connectToHost("192.168.x.x", 1883);  // Même IP</code></pre>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 Astuce Hotspot Android</strong><br>
+                Si vous utilisez un hotspot Android :
+                <ol>
+                    <li>Activer le hotspot sur votre téléphone Android</li>
+                    <li>Connecter votre ordinateur ET votre ESP32 au hotspot</li>
+                    <li>Trouver l'IP de votre ordinateur : <code>ipconfig</code></li>
+                    <li>L'adresse commence généralement par <code>192.168.43.x</code></li>
+                </ol>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Note importante</strong><br>
+                Les hotspots iOS ne sont <strong>pas recommandés</strong> pour ce projet car ils ne fonctionnent pas correctement avec le protocole MQTT. Privilégiez un hotspot Android ou un réseau Wi-Fi domestique.
+            </div>
+        </div>
+
+        <div id="conclusion" class="section">
+            <h2>✅ Conclusion et Vérification Finale</h2>
+            
+            <h3>📋 Checklist Complète</h3>
+            <div class="file-list">
+                <ul class="checklist">
+                    <li>Qt Creator 6.8.2 installé avec tous les modules requis</li>
+                    <li>Projet AGRITECH téléchargé et ouvert dans Qt Creator</li>
+                    <li>Fichier <code>best_agritech.pt</code> placé au bon emplacement</li>
+                    <li>Chemins Python configurés dans le fichier .pro</li>
+                    <li>Chemin du modèle modifié dans <code>dashboardwindow.cpp</code></li>
+                    <li>Mosquitto installé et configuré</li>
+                    <li>Port 1883 autorisé dans le pare-feu Windows</li>
+                    <li>Service Mosquitto démarré</li>
+                    <li>Adresse IP identifiée et configurée (Arduino + valuemqtt.cpp)</li>
+                    <li>Réseau compatible sélectionné (éviter réseaux institutionnels)</li>
+                </ul>
+            </div>
+
+            <h3>🚀 Lancement du Système</h3>
+            <p><strong>Ordre de démarrage recommandé :</strong></p>
+            <ol>
+                <li>Vérifier que Mosquitto est actif : <code>net start mosquitto</code></li>
+                <li>Lancer l'ESP32 (doit se connecter au réseau Wi-Fi)</li>
+                <li>Activer l'environnement Python et lancer le script de détection :
+                    <pre><code>.\venv\Scripts\activate
+python pest_detection.py best_agritech.pt</code></pre>
+                </li>
+                <li>Compiler et lancer l'application Qt depuis Qt Creator</li>
+            </ol>
+
+            <h3>✨ Résultat Attendu</h3>
+            <div class="success-box">
+                Si toutes les étapes ont été correctement suivies :
+                <ul>
+                    <li>✅ L'application Qt démarre sans erreurs</li>
+                    <li>✅ Le modèle IA fonctionne et détecte les nuisibles</li>
+                    <li>✅ La communication MQTT est établie</li>
+                    <li>✅ Les données de l'ESP32 sont visibles sur le dashboard</li>
+                    <li>✅ Les graphiques s'affichent en temps réel</li>
+                    <li>✅ Les alertes de nuisibles fonctionnent</li>
+                </ul>
+            </div>
+
+            <h3>🆘 En Cas de Problème</h3>
+            <div class="info-box">
+                <strong>Problèmes fréquents et solutions :</strong>
+                <ul>
+                    <li><strong>Erreur de compilation Qt :</strong> Vérifier que Qt 6.8.2 est bien installé</li>
+                    <li><strong>Module MQTT introuvable :</strong> Réinstaller Qt MQTT via Maintenance Tool</li>
+                    <li><strong>Impossible de se connecter à MQTT :</strong> Vérifier firewall et adresse IP</li>
+                    <li><strong>ESP32 ne se connecte pas :</strong> Vérifier SSID/mot de passe Wi-Fi et adresse IP</li>
+                    <li><strong>Modèle IA non chargé :</strong> Vérifier le chemin absolu vers best_agritech.pt</li>
+                    <li><strong>Python non reconnu :</strong> Vérifier les chemins dans le fichier .pro</li>
+                </ul>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px;">
+                <h3 style="color: white; border: none; margin-bottom: 10px;">🎉 Bon Courage pour le Festival des Sciences !</h3>
+                <p style="font-size: 1.1em; margin: 10px 0;">Profitez de cette expérience extraordinaire et amusez-vous bien !</p>
+                <p>Ce tutoriel a été conçu pour vous guider pas à pas dans l'installation et la configuration du système AGRITECH.</p>
+            </div>
+    </div>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Ajouter un bouton "Retour en haut"
+        window.addEventListener('scroll', function() {
+            const scrollBtn = document.getElementById('scrollTopBtn');
+            if (!scrollBtn) {
+                const btn = document.createElement('button');
+                btn.id = 'scrollTopBtn';
+                btn.innerHTML = '↑';
+                btn.style.cssText = `
+                    position: fixed;
+                    bottom: 30px;
+                    right: 30px;
+                    background: #667eea;
+                    color: white;
+                    border: none;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    font-size: 24px;
+                    cursor: pointer;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                    transition: all 0.3s;
+                    z-index: 1000;
+                `;
+                btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+                btn.onmouseover = () => btn.style.transform = 'scale(1.1)';
+                btn.onmouseout = () => btn.style.transform = 'scale(1)';
+                document.body.appendChild(btn);
+            }
+            
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.style.display = 'block';
+            } else {
+                scrollTopBtn.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
